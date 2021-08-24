@@ -23,7 +23,7 @@ class School_T(models.Model):
 class Department_T(models.Model):
     departmentID = models.CharField(max_length=5, primary_key=True)
     departmentName = models.CharField(max_length=50)
-    schoolName = models.ForeignKey(School_T, on_delete=models.CASCADE)
+    schoolID = models.ForeignKey(School_T, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.departmentID
@@ -49,6 +49,7 @@ class Student_T(models.Model):
 
 
 class Account_T(models.Model):
+    accountID = models.CharField(max_length=7, primary_key=True)
     name = models.CharField(max_length=30, null=True)
     gender = models.CharField(max_length=6, null=True)
     email = models.CharField(max_length=30, null=True)
@@ -180,5 +181,3 @@ class Evaluation_T(models.Model):
 
     def __str__(self):
         return str(self.evaluationID)
-   
-
