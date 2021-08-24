@@ -49,6 +49,7 @@ class Student_T(models.Model):
 
 
 class Account_T(models.Model):
+    accountID = models.CharField(max_length=7, primary_key=True)
     name = models.CharField(max_length=30, null=True)
     gender = models.CharField(max_length=6, null=True)
     email = models.CharField(max_length=30, null=True)
@@ -127,19 +128,17 @@ class Section_T(models.Model):
 
     def __str__(self):
         return str(self.sectionNum)
-    
-    class Registration_T(models.Model):
+
+class Registration_T(models.Model):
     regID = models.AutoField(primary_key=True)
-    studentID = models.ForeignKey(Student_T, on_delete=models.CASCADE)
+    sAccountID = models.ForeignKey(Student_T, on_delete=models.CASCADE)
     sectionID = models.ForeignKey(Section_T, on_delete=models.CASCADE)
     reg_semester = models.CharField(max_length=15)
     year = models.IntegerField(default=2020,null=True)
 
     def __str__(self):
-        return str(self.registrationID)
-
-
-
+        return str(self.regID)
+ 
 class CO_T(models.Model):
     coID = models.AutoField(primary_key=True)
     coNum = models.CharField(max_length=4)
@@ -174,4 +173,5 @@ class Evaluation_T(models.Model):
 
     def __str__(self):
         return str(self.evaluationID)
+   
 
