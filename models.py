@@ -127,3 +127,51 @@ class Section_T(models.Model):
 
     def __str__(self):
         return str(self.sectionNum)
+    
+    class Registration_T(models.Model):
+    regID = models.AutoField(primary_key=True)
+    studentID = models.ForeignKey(Student_T, on_delete=models.CASCADE)
+    sectionID = models.ForeignKey(Section_T, on_delete=models.CASCADE)
+    reg_semester = models.CharField(max_length=15)
+    year = models.IntegerField(default=2020,null=True)
+
+    def __str__(self):
+        return str(self.registrationID)
+
+
+
+class CO_T(models.Model):
+    coID = models.AutoField(primary_key=True)
+    coNum = models.CharField(max_length=4)
+    ploID = models.ForeignKey(PLO_T, on_delete=models.CASCADE, default='N/A')
+    courseID = models.ForeignKey(Course_T, on_delete=models.CASCADE, default='N/A')
+    thresold = models.FloatField(default=40)
+
+    def __str__(self):
+        return self.coNum
+
+
+class Assessment_T(models.Model):
+    assessmentID = models.AutoField(primary_key=True)
+    assessmentName = models.CharField(max_length=30)
+    questionNo = models.IntegerField()
+    totalMarks = models.FloatField()
+    coID = models.ForeignKey(CO_T, on_delete=models.CASCADE)
+    sectionID = models.ForeignKey(Section_T, on_delete=models.CASCADE)
+    iAccountID = models.ForeignKey(Instructor_T, on_delete=models.CASCADE)
+    assessmentType = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.assessmentName + " "+str(self.questionNum)
+
+
+class Evaluation_T(models.Model):
+    evaluationID = models.AutoField(primary_key=True)
+    obtainedMarks = models.FloatField()
+    assessmentID = models.ForeignKey(Assessment_T, on_delete=models.CASCADE)
+    regID = models.ForeignKey(Registration_T, on_delete=models.CASCADE)
+    iAccountID = models.ForeignKey(Instructor_T, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.evaluationID)
+
