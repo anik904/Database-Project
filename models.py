@@ -148,6 +148,14 @@ class CO_T(models.Model):
     def __str__(self):
         return self.coNum
 
+    class CO_Course_T(models.Model):
+    coID = models.ForeignKey(CO_T, on_delete=models.CASCADE)
+    courseID = models.ForeignKey(Course_T, on_delete=models.CASCADE, default='N/A')
+    co_semester = models.CharField(max_length=15)
+    co_year = models.IntegerField(default=2020,null=True)
+
+    def __str__(self):
+        return self.coID
 
 class Assessment_T(models.Model):
     assessmentID = models.AutoField(primary_key=True)
