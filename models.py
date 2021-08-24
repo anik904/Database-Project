@@ -49,7 +49,6 @@ class Student_T(models.Model):
 
 
 class Account_T(models.Model):
-    accountID = models.CharField(max_length=7, primary_key=True)
     name = models.CharField(max_length=30, null=True)
     gender = models.CharField(max_length=6, null=True)
     email = models.CharField(max_length=30, null=True)
