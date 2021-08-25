@@ -82,13 +82,13 @@ class Head_T(Account_T):
 
 
 class Instructor_T(Account_T):
-    instructorID = models.IntegerField(primary_key=True)
+    iAccountID = models.IntegerField(primary_key=True)
     startDate = models.DateField(null=True)
     rank = models.CharField(max_length=50, null=True)
     department = models.ForeignKey(Department_T, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.firstName + " "+ self.lastName
+        return self.iAccountID
 
 
 class Course_T(models.Model):
