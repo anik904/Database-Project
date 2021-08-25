@@ -166,7 +166,7 @@ class Assessment_T(models.Model):
     coID = models.ForeignKey(CO_T, on_delete=models.CASCADE)
     sectionID = models.ForeignKey(Section_T, on_delete=models.CASCADE)
     iAccountID = models.ForeignKey(Instructor_T, on_delete=models.CASCADE)
-    assessmentType = models.CharField(max_length=30)
+    weight = models.IntegerField()
 
     def __str__(self):
         return self.assessmentName + " "+str(self.questionNum)
