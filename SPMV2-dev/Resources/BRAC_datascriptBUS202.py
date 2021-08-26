@@ -19,10 +19,10 @@ plolist = list(PLO_T.objects.filter(program=2))
 colist = []
 
 
-colist.append(CO_T(coNum="CO1", course=course, plo=plolist[12]))
-colist.append(CO_T(coNum="CO2", course=course, plo=plolist[13]))
-colist.append(CO_T(coNum="CO3", course=course, plo=plolist[14]))
-colist.append(CO_T(coNum="CO4", course=course, plo=plolist[15]))
+colist.append(CO_T(coNum="CO1", course=course, plo=plolist[0]))
+colist.append(CO_T(coNum="CO2", course=course, plo=plolist[1]))
+colist.append(CO_T(coNum="CO3", course=course, plo=plolist[2]))
+colist.append(CO_T(coNum="CO4", course=course, plo=plolist[3]))
 
 colist[0].save()
 colist[1].save()
