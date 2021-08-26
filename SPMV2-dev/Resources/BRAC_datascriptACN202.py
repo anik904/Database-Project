@@ -40,10 +40,10 @@ program = Program_T.objects.get(pk=2)
 
 def updatedatabase(d, sem, y):
 
-    CO_Course_T(coID="CO5", courseID=course, co_semester=sem, co_year=y)
-    CO_Course_T(coID="CO6", courseID=course, co_semester=sem, co_year=y)
-    CO_Course_T(coID="CO7", courseID=course, co_semester=sem, co_year=y)
-    CO_Course_T(coID="CO8", courseID=course, co_semester=sem, co_year=y)
+    CO_Course_T(coID="CO1", courseID=course, co_semester=sem, co_year=y)
+    CO_Course_T(coID="CO2", courseID=course, co_semester=sem, co_year=y)
+    CO_Course_T(coID="CO3", courseID=course, co_semester=sem, co_year=y)
+    CO_Course_T(coID="CO4", courseID=course, co_semester=sem, co_year=y)
 
     df = pd.read_excel("ACN202_BRAC.xlsx", sheet_name="Marks")
 
