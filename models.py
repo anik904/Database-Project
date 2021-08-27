@@ -39,7 +39,7 @@ class Program_T(models.Model):
 
 
 class Student_T(models.Model):
-    sAccountID = models.CharField(max_length=7, primary_key=True)
+    SAccountID = models.CharField(max_length=7, primary_key=True)
     enrollmentDate = models.DateField(null=True)
     programID = models.ForeignKey(Program_T, on_delete=models.CASCADE, default='N/A')
     graduateDate = models.DateField(null=True)
@@ -62,34 +62,29 @@ class Account_T(models.Model):
 
 
 class VC_T(Account_T):
-    vcID = models.CharField(max_length=4, primary_key=True)
     startDate = models.CharField(max_length=15, default='N/A')
     endDate = models.CharField(max_length=15, default='N/A')
 
 
 class Dean_T(Account_T):
-    deanID = models.CharField(max_length=4, primary_key=True)
     startDate = models.CharField(max_length=15, default='N/A')
     endDate = models.CharField(max_length=15, default='N/A')
     school = models.ForeignKey(School_T, on_delete=models.CASCADE)
 
 
 class Head_T(Account_T):
-    headID = models.CharField(max_length=4, primary_key=True)
     startDate = models.CharField(max_length=15,default='N/A')
     endDate = models.CharField(max_length=15,default='N/A')
     department = models.ForeignKey(Department_T, on_delete=models.CASCADE)
 
 
 class Instructor_T(Account_T):
-    iAccountID = models.IntegerField(primary_key=True)
     startDate = models.DateField(null=True)
     rank = models.CharField(max_length=50, null=True)
     department = models.ForeignKey(Department_T, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.iAccountID
-
 
 class Course_T(models.Model):
     courseID = models.CharField(max_length=7, primary_key=True)
@@ -100,7 +95,6 @@ class Course_T(models.Model):
 
     def __str__(self):
         return self.courseID
-
 
 class PrereqCourse_T(models.Model):
     courseID = models.ForeignKey(Course_T, on_delete=models.CASCADE, related_name='Course')
