@@ -104,7 +104,7 @@ id = 4101
 
 i = 0
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="CSE")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="CSE")
     f.save()
     id = id + 1
     i = i + 1
@@ -116,7 +116,7 @@ id = 4201
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="ACN")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="ACN")
     f.save()
     id = id + 1
     i = i + 1
@@ -131,7 +131,7 @@ id = 4301
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="EEE")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="EEE")
     f.save()
     id = id + 1
     i = i + 1
@@ -142,7 +142,7 @@ id = 4401
 
 i = 0
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="MIS")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="MIS")
     f.save()
     id = id + 1
     i = i + 1
@@ -154,7 +154,7 @@ id = 4501
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="ENG")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="ENG")
     f.save()
     id = id + 1
     i = i + 1
@@ -168,7 +168,7 @@ id = 4601
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="GSG")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="GSG")
     f.save()
     id = id + 1
     i = i + 1
@@ -182,7 +182,7 @@ id = 5101
 
 i = 0
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="CSE")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="CSE")
     f.save()
     id = id + 1
     i = i + 1
@@ -194,7 +194,7 @@ id = 5201
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="ACN")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="ACN")
     f.save()
     id = id + 1
     i = i + 1
@@ -209,7 +209,7 @@ id = 5301
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="EEE")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="EEE")
     f.save()
     id = id + 1
     i = i + 1
@@ -220,7 +220,7 @@ id = 7701
 
 i = 0
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="MIS")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="MIS")
     f.save()
     id = id + 1
     i = i + 1
@@ -232,7 +232,7 @@ id = 8801
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="ENG")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="ENG")
     f.save()
     id = id + 1
     i = i + 1
@@ -246,7 +246,7 @@ id = 4601
 i = 0
 
 for n in nlist:
-    f = Instructor_T(iAccountID=id, name=n, accountType="I", departmentID="GSG")
+    f = Instructor_T(instructorID=id, name=n, accountType="I", departmentID="GSG")
     f.save()
     id = id + 1
     i = i + 1
