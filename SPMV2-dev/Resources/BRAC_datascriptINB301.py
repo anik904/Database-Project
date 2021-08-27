@@ -30,17 +30,23 @@ colist[1].save()
 colist[2].save()
 colist[3].save()
 
-faculties = []
-faculties.append(Faculty_T.objects.get(pk=4207))
-faculties.append(Faculty_T.objects.get(pk=4208))
-faculties.append(Faculty_T.objects.get(pk=4209))
+instructors = []
+instructors.append(Instructor_T.objects.get(pk=4207))
+instructors.append(Instructor_T.objects.get(pk=4208))
+insstructors.append(Instructor_T.objects.get(pk=4209))
 
 dept = Department_T.objects.get(pk="ACN")
 program = Program_T.objects.get(pk=2)
 
 
 def updatedatabase(d, sem, y):
-    df = pd.read_excel("INB301.xlsx", sheet_name="Marks")
+    
+    CO_Course_T(coID="CO1", courseID=course, co_semester=sem, co_year=y)
+    CO_Course_T(coID="CO2", courseID=course, co_semester=sem, co_year=y)
+    CO_Course_T(coID="CO3", courseID=course, co_semester=sem, co_year=y)
+    CO_Course_T(coID="CO4", courseID=course, co_semester=sem, co_year=y)
+
+    df = pd.read_excel("INB301_BRAC.xlsx", sheet_name="Marks")
 
     data = df.values.tolist()
 
