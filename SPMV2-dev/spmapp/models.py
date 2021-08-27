@@ -38,8 +38,7 @@ class Program_T(models.Model):
         return self.programName
 
 
-class Student_T(models.Model):
-    SAccountID = models.CharField(max_length=7, primary_key=True)
+class Student_T(Account_T):
     enrollmentDate = models.DateField(null=True)
     programID = models.ForeignKey(Program_T, on_delete=models.CASCADE, default='N/A')
     graduateDate = models.DateField(null=True)
@@ -125,7 +124,7 @@ class Section_T(models.Model):
 
 class Registration_T(models.Model):
     regID = models.AutoField(primary_key=True)
-    sAccountID = models.ForeignKey(Student_T, on_delete=models.CASCADE)
+    accountID = models.ForeignKey(Student_T, on_delete=models.CASCADE)
     sectionID = models.ForeignKey(Section_T, on_delete=models.CASCADE)
     reg_semester = models.CharField(max_length=15)
     year = models.IntegerField(default=2020,null=True)
@@ -159,7 +158,7 @@ class Assessment_T(models.Model):
     totalMarks = models.FloatField()
     coID = models.ForeignKey(CO_T, on_delete=models.CASCADE)
     sectionID = models.ForeignKey(Section_T, on_delete=models.CASCADE)
-    iAccountID = models.ForeignKey(Instructor_T, on_delete=models.CASCADE)
+    instructorID = models.ForeignKey(Instructor_T, on_delete=models.CASCADE)
     weight = models.IntegerField()
 
     def __str__(self):
@@ -171,7 +170,7 @@ class Evaluation_T(models.Model):
     obtainedMarks = models.FloatField()
     assessmentID = models.ForeignKey(Assessment_T, on_delete=models.CASCADE)
     regID = models.ForeignKey(Registration_T, on_delete=models.CASCADE)
-    iAccountID = models.ForeignKey(Instructor_T, on_delete=models.CASCADE)
+    instructorID = models.ForeignKey(Instructor_T, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.evaluationID)
