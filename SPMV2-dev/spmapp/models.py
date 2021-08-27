@@ -124,7 +124,7 @@ class Section_T(models.Model):
 
 class Registration_T(models.Model):
     regID = models.AutoField(primary_key=True)
-    accountID = models.ForeignKey(Student_T, on_delete=models.CASCADE)
+    studentID = models.ForeignKey(Student_T, on_delete=models.CASCADE)
     sectionID = models.ForeignKey(Section_T, on_delete=models.CASCADE)
     reg_semester = models.CharField(max_length=15)
     year = models.IntegerField(default=2020,null=True)
