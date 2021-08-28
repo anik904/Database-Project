@@ -45,7 +45,7 @@ def updatedatabase(d, sem, y):
     CO_Course_T(coID="CO3", courseID=course, co_semester=sem, co_year=y)
     CO_Course_T(coID="CO4", courseID=course, co_semester=sem, co_year=y)
 
-    df = pd.read_excel("ACN201_BRAC.xlsx", sheet_name="Marks")
+    df = pd.read_excel("ACN202.xlsx", sheet_name="Marks")
 
     data = df.values.tolist()
 
