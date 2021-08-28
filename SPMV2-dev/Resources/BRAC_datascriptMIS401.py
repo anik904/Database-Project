@@ -10,7 +10,7 @@ django.setup()
 
 from spmapp.models import *
 
-course = Course_T(courseID='MIS401', courseName="Management Information System", numOfCredits=4, programID=4,
+course = Course_T(courseID='MIS401', courseName="Database Management", numOfCredits=4, programID=4,
                   courseType="Core")
 course.save()
 
