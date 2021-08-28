@@ -6,5 +6,5 @@ Database Project Of Group 02
 •PLO performance trend of selected course/s
 •PLO performance trend of selected program/s
 •PLO performance trend of selected university/s
-•Miscellaneous PLO performance trend:
+•Miscellaneous PLO performance trend
 
