@@ -37,16 +37,7 @@ class Program_T(models.Model):
     def __str__(self):
         return self.programName
 
-
-class Student_T(Account_T):
-    enrollmentDate = models.DateField(null=True)
-    programID = models.ForeignKey(Program_T, on_delete=models.CASCADE, default='N/A')
-    graduateDate = models.DateField(null=True)
-
-    def __str__(self):
-        return self.sAccountID
-
-
+    
 class Account_T(models.Model):
     accountID = models.CharField(max_length=7, primary_key=True)
     name = models.CharField(max_length=30, null=True)
@@ -58,6 +49,15 @@ class Account_T(models.Model):
 
     class Meta:
         abstract = True
+        
+        
+class Student_T(Account_T):
+    enrollmentDate = models.DateField(null=True)
+    programID = models.ForeignKey(Program_T, on_delete=models.CASCADE, default='N/A')
+    graduateDate = models.DateField(null=True)
+
+    def __str__(self):
+        return self.sAccountID
 
 
 class VC_T(Account_T):
