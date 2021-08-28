@@ -10,32 +10,32 @@ django.setup()
 
 from spmapp.models import *
 
-course = Course_T(courseID='CSE216', courseName="Microprocessor, Interfacing and Assembly Language", numOfCredits=4, programID=1,
-                  courseType="Core") #change
+course = Course_T(courseID='CSE216', courseName="Microprocessor, Interfacing and Assembly Language", numOfCredits=4, programID=1, courseType="Core")
 course.save()
 
 # CO
-plolist = list(PLO_T.objects.filter(programID=1))
+plolist = list(PLO_T.objects.filter(program=1))
 
 colist = []
 
-colist.append(CO_T(coNum="CO1", course=course, plo=plolist[0])) #chnage
-colist.append(CO_T(coNum="CO2", course=course, plo=plolist[2])) #chnage
-colist.append(CO_T(coNum="CO3", course=course, plo=plolist[11])) #chnage
-colist.append(CO_T(coNum="CO4", course=course, plo=plolist[10])) #chnage
+
+colist.append(CO_T(coNum="CO1", course=course, plo=plolist[0]))
+colist.append(CO_T(coNum="CO2", course=course, plo=plolist[2]))
+colist.append(CO_T(coNum="CO3", course=course, plo=plolist[11]))
+colist.append(CO_T(coNum="CO4", course=course, plo=plolist[10]))
 
 colist[0].save()
 colist[1].save()
 colist[2].save()
 colist[3].save()
 
-faculties = []
-faculties.append(Instructor_T.objects.get(pk=4113)) # change: faculty
-faculties.append(Instructor_T.objects.get(pk=4114)) # change: faculty
-faculties.append(Instructor_T.objects.get(pk=4115)) # change: faculty
+instructors = []
+instructors.append(Instructor_T.objects.get(pk=4113))
+instructors.append(Instructor_T.objects.get(pk=4114))
+instructors.append(Instructor_T.objects.get(pk=4115))
 
-dept = Department_T.objects.get(pk="CSE") # change
-program = Program_T.objects.get(pk=1) #change
+dept = Department_T.objects.get(pk="CSE")
+program = Program_T.objects.get(pk=1)
 
 
 def updatedatabase(d, sem, y):
@@ -45,7 +45,7 @@ def updatedatabase(d, sem, y):
     CO_Course_T(coID="CO3", courseID=course, co_semester=sem, co_year=y)
     CO_Course_T(coID="CO4", courseID=course, co_semester=sem, co_year=y)
 
-    df = pd.read_excel("CSE216.xlsx", sheet_name="Marks") # change
+    df = pd.read_excel("CSE216.xlsx", sheet_name="Marks")
 
     data = df.values.tolist()
 
@@ -74,12 +74,11 @@ def updatedatabase(d, sem, y):
 
         if i[3] not in sections:
             sections.append(i[3])
-
     sections.sort()
     # Students
 
     for i in newstudents:
-        student = Student_T(sAccountID=i, departmentID=dept, programID=program)
+        student = Student_T(accountID=i, departmentID=dept, programID=program)
         student.save()
 
     # Sections
@@ -97,7 +96,7 @@ def updatedatabase(d, sem, y):
 
     for i in data:
         st = Student_T.objects.get(pk=i[1])
-        reg = Registration_T(sAccountID=st, sectionID=sectionlist[i[3] - 1], reg_semester=sem, year=y)
+        reg = Registration_T(accountID=st, sectionID=sectionlist[i[3] - 1], reg_semester=sem, year=y)
         reg.save()
         reglist.append(reg)
 
@@ -113,8 +112,8 @@ def updatedatabase(d, sem, y):
                     coid = k
                     break
 
-            assessment = Assessment_T(assessmentName="Mid", questionNo=j, totalMarks=midmarks[j - 1], coID=coid,
-                                      sectionID=sectionlist[i - 1], weight=30, iAccountID=sectionlist[i - 1].instructorID)
+            assessment = Assessment_T(assessmentName="Mid", questionNum=j, totalMarks=midmarks[j - 1], coID=coid,
+                                      sectionID=sectionlist[i - 1], weight=30)
             assessment.save()
             assessmentlist.append(assessment)
 
@@ -126,8 +125,8 @@ def updatedatabase(d, sem, y):
                 if k.coNum == cofin[j - 1]:
                     coid = k
                     break
-            assessment = Assessment_T(assessmentName="Final", questionNo=j, totalMarks=finmarks[j - 1], coID=coid,
-                                      sectionID=sectionlist[i - 1], weight=40, iAccountID=sectionlist[i - 1].instructorID)
+            assessment = Assessment_T(assessmentName="Final", questionNum=j, totalMarks=finmarks[j - 1], coID=coid,
+                                      sectionID=sectionlist[i - 1], weight=40)
 
             assessment.save()
             assessmentlist.append(assessment)
@@ -139,8 +138,8 @@ def updatedatabase(d, sem, y):
                 coid = k
                 break
 
-        assessment = Assessment_T(assessmentName="Lab", questionNo=1, totalMarks=labmark, coID=coid,
-                                  section=sectionlist[i - 1], weight=30, iAccountID=sectionlist[i - 1].instructorID)
+        assessment = Assessment_T(assessmentName="Lab", questionNum=1, totalMarks=labmark, coID=coid,
+                                  sectionID=sectionlist[i - 1], weight=30)
         assessment.save()
         assessmentlist.append(assessment)
 
@@ -158,7 +157,7 @@ def updatedatabase(d, sem, y):
         for j in range(0, len(marks)):
             tmark = assessmentlist[num+j].totalMarks
             omark = random.randint(0,int(tmark))
-            ev = Evaluation_T(obtainedMarks=omark, assessmentID=assessmentlist[num+j], regID=reglist[i], iAccountID=assessmentlist[num+j].instructorID)
+            ev = Evaluation_T(obtainedMarks=omark, assessmentID=assessmentlist[num+j], regID=reglist[i], instructorID=assessmentlist[num+j].instructorID)
             ev.save()
             evlist.append(ev)
 
