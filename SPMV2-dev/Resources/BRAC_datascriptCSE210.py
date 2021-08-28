@@ -10,7 +10,7 @@ django.setup()
 
 from spmapp.models import *
 
-course = Course_T(courseID='CSE210', courseName="Electronics I", numOfCredits=4, program_id=1, courseType="Core")
+course = Course_T(courseID='CSE210', courseName="Electronics I", numOfCredits=4, programID=1, courseType="Core")
 course.save()
 
 # CO
@@ -78,9 +78,8 @@ def updatedatabase(d, sem, y):
     sections.sort()
     # Students
 
-
     for i in newstudents:
-        student = Student_T(studentID=i, department=dept, program=program)
+        student = Student_T(accountID=i, departmentID=dept, programID=program)
         student.save()
 
     # Sections
@@ -89,7 +88,7 @@ def updatedatabase(d, sem, y):
 
     for i in sections:
         faculty = faculties[i - 1]
-        section = Section_T(sectionNum=i, course=course, faculty=faculty, semester=sem, year=y)
+        section = Section_T(sectionNum=i, courseID=course, instructorID=faculty, sec_semester=sem, year=y)
         section.save()
         sectionlist.append(section)
 
@@ -98,7 +97,7 @@ def updatedatabase(d, sem, y):
 
     for i in data:
         st = Student_T.objects.get(pk=i[1])
-        reg = Registration_T(student=st, section=sectionlist[i[3] - 1], semester=sem, year=y)
+        reg = Registration_T(accountID=st, sectionID=sectionlist[i[3] - 1], reg_semester=sem, year=y)
         reg.save()
         reglist.append(reg)
 
@@ -114,8 +113,8 @@ def updatedatabase(d, sem, y):
                     coid = k
                     break
 
-            assessment = Assessment_T(assessmentName="Mid", questionNum=j, totalMarks=midmarks[j - 1], co=coid,
-                               section=sectionlist[i - 1], weight=30)
+            assessment = Assessment_T(assessmentName="Mid", questionNum=j, totalMarks=midmarks[j - 1], coID=coid,
+                                      sectionID=sectionlist[i - 1], weight=30)
             assessment.save()
             assessmentlist.append(assessment)
 
@@ -127,8 +126,8 @@ def updatedatabase(d, sem, y):
                 if k.coNum == cofin[j - 1]:
                     coid = k
                     break
-            assessment = Assessment_T(assessmentName="Final", questionNum=j, totalMarks=finmarks[j - 1], co=coid,
-                               section=sectionlist[i - 1], weight=40)
+            assessment = Assessment_T(assessmentName="Final", questionNum=j, totalMarks=finmarks[j - 1], coID=coid,
+                                      sectionID=sectionlist[i - 1], weight=40)
 
             assessment.save()
             assessmentlist.append(assessment)
@@ -140,8 +139,8 @@ def updatedatabase(d, sem, y):
                 coid = k
                 break
 
-        assessment = Assessment_T(assessmentName="Lab", questionNum=1, totalMarks=labmark, co=coid,
-                           section=sectionlist[i - 1], weight=30)
+        assessment = Assessment_T(assessmentName="Lab", questionNum=1, totalMarks=labmark, coID=coid,
+                                  sectionID=sectionlist[i - 1], weight=30)
         assessment.save()
         assessmentlist.append(assessment)
 
@@ -153,16 +152,17 @@ def updatedatabase(d, sem, y):
         marks = data[i][5:11]
         marks.extend(data[i][13:17])
         marks.append(data[i][19])
+
         num = 11 * (data[i][3] - 1)
 
         for j in range(0, len(marks)):
-            tmark = assessmentlist[num + j].totalMarks
-            omark = random.randint(0, int(tmark))
-            ev = Evaluation_T(obtainedMarks=omark, assessment=assessmentlist[num + j], registration=reglist[i])
+            tmark = assessmentlist[num+j].totalMarks
+            omark = random.randint(0,int(tmark))
+            ev = Evaluation_T(obtainedMarks=omark, assessmentID=assessmentlist[num+j], regID=reglist[i], instructorID=assessmentlist[num+j].instructorID)
             ev.save()
             evlist.append(ev)
 
 
-updatedatabase(2, "Spring", 2020)
-updatedatabase(0, "Summer", 2020)
-updatedatabase(1, "Autumn", 2020)
+updatedatabase(0, "Spring", 2020)
+updatedatabase(100, "Summer", 2020)
+updatedatabase(200, "Autumn", 2020)
