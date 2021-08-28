@@ -15,7 +15,7 @@ course = Course_T(courseID='ACN201', courseName="Principles of Accounting", numO
 course.save()
 
 # CO
-plolist = list(PLO_T.objects.filter(programID=2))
+plolist = list(PLO_T.objects.filter(program=2))
 
 colist = []
 
@@ -29,13 +29,13 @@ colist[1].save()
 colist[2].save()
 colist[3].save()
 
-faculties = []
-faculties.append(Instructor_T.objects.get(pk=4201)) # change: faculty
-faculties.append(Instructor_T.objects.get(pk=4202))
-faculties.append(Instructor_T.objects.get(pk=4203))
+instructors = []
+instructors.append(Instructor_T.objects.get(pk=4201))
+instructors.append(Instructor_T.objects.get(pk=4202))
+instructors.append(Instructor_T.objects.get(pk=4203))
 
-dept = Department_T.objects.get(pk="ACN") # change
-program = Program_T.objects.get(pk=2) #change
+dept = Department_T.objects.get(pk="ACN")
+program = Program_T.objects.get(pk=2)
 
 
 def updatedatabase(d, sem, y):
@@ -45,7 +45,7 @@ def updatedatabase(d, sem, y):
     CO_Course_T(coID="CO3", courseID=course, co_semester=sem, co_year=y)
     CO_Course_T(coID="CO4", courseID=course, co_semester=sem, co_year=y)
 
-    df = pd.read_excel("ACN201.xlsx", sheet_name="Marks") # change
+    df = pd.read_excel("ACN201_BRAC.xlsx", sheet_name="Marks")
 
     data = df.values.tolist()
 
