@@ -90,7 +90,7 @@ def updatedatabase(d, sem, y):
 
     for i in sections:
         faculty = instructors[i - 1]
-        section = Section_T(sectionNum=i, course=course, faculty=faculty, semester=sem, year=y)
+        section = Section_T(sectionNum=i, course=course, instructorID=faculty, semester=sem, year=y)
         section.save()
         sectionlist.append(section)
 
