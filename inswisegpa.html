@@ -1,10 +1,10 @@
 {% extends "layouts/base.html" %}
-
+ 
 {% block title %} SPMS{% endblock %}
-
+ 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
-
+ 
 {% block sidebar %}
     {% if usertype == 'Higher Authority' %}
         {% include 'includes/hasidebar.html' %}
@@ -12,9 +12,9 @@
         {% include 'includes/facultysidebar.html' %}
     {% endif %}
 {% endblock %}
-
+ 
+ 
 {% block content %}
- <!-- Funtionality number 2b start -->
 <div class="row">
     <div class="col-12">
         <div class="card card-chart">
@@ -67,102 +67,292 @@
                     </select>
                 </td>
                 <td style="text-align: center;" class="last-row mt-4" colspan="3">
-                    <button class="btn btn-primary">Enter</button>
+                    <button class="btn btn-primary">Search</button>
                 </td>
             </tr>
         </table>
     </form>
 </div>
+ 
 
-<div class="row mt-4" id ="chart" >
-    <div class="col-12" >
+    <div class="row mt-4" id ="chart">
+      <div class="col-12">
         <div class="card card-chart">
-            <div class="card-header ">
-                <div class="row">
-                    <div class="col-sm-6 text-left">
-                        <h2 class="card-title">GPA Performance</h2>
-                    </div>
+          <div class="card-header ">
+            <div class="row">
+              <div class="col-sm-6 text-left">
+                <h2 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>PLO Analysis of Student</h2>
+              </div>
+              <div class="col-sm-6">
+                <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                 
+                 
+                  <label class="btn btn-sm btn-primary btn-simple" id="2">
+                    <input type="radio" class="d-none" name="options">
+                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Course Wise</span>
+                    <span class="d-block d-sm-none">
+                      <i class="tim-icons icon-tap-02"></i>
+                    </span>
+                  </label>
                 </div>
+              </div>
             </div>
-            <div class="card-body" style="height:450px;" >
-                <div class="chart-area">
-                    <canvas id="gpatrend" height="100%"></canvas>
-                </div>
+          </div>
+          <div class="card-body" style="height:500px;" >
+            <div class="chart-area">
+                <canvas id="ploanalysis" height="100%"></canvas>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-
+ 
+   
+ 
+ 
 {% endblock content %}
-
+ 
+ 
+ 
+ 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
+ 
+ 
 <script>
-     var search = {{search}}
-
+    var search ={{search}}
+ 
     if(search==1){
         document.getElementById("chart").style.display = "none";
-    }
-</script>
-<script>
-    var ctx = document.getElementById("gpatrend").getContext("2d");
-
+        }
+    var ctx = document.getElementById("ploanalysis").getContext("2d");
     colors = ['#5CC8D7FF','#00539CFF','#EEA47FFF','#2C5F2D','#97BC62FF','#CE4A7EFF','#FC766AFF','#603F83FF','#006D77',
         '#E29578','#264653','#81b29a','#8d99ae']
-
-        labels = {{labels|safe}}
-        fnames = [{% for i in fnames %} '{{ i }}', {% endfor %}];
-        gpatable = {{ gpatable }};
-
-        var datasetlist = []
-
-        for (let i = 0; i < fnames.length; i++) {
-            datasetlist.push({
-               label: fnames[i],
-               data: gpatable[i],
+    plo1 = {{plo1|safe}}
+    plo2 = {{plo2|safe}}
+    plo3 = {{plo3|safe}}
+    plo4 = {{plo4|safe}}
+ 
+    table1 = {{table1}}
+    table2 = {{table2}}
+    table3 = {{table3}}
+    table4 = {{table4}}
+ 
+    co = [{% for i in co %} '{{ i }}', {% endfor %}]
+    courses = [{% for i in courses %} '{{ i }}', {% endfor %}]
+ 
+    var originaldata = {
+        labels:  plo1,
+                  datasets: [{
+                        label:"PLO Percentage",
+                        data:table1,
+                        backgroundColor:colors,
+                    },
+                  ]
+      }
+ 
+     var config = {
+              type: 'bar',
+              data: originaldata,
+              options: {
+                    scales: {
+                        xAxes: [{
+                          stacked: true,
+                          gridLines: {
+                            display: false,
+                          }
+                        }],
+                        yAxes: [{
+                          stacked: true,
+                          ticks: {
+                            beginAtZero: true,
+                            max:100,
+                          },
+                          type: 'linear',
+                        }]
+                     },
+ 
+                    responsive: true,
+                    maintainAspectRatio: true
+        }
+        }
+     var myChart = new Chart(ctx, config);
+ 
+    $("#0").click(function() {
+        var datasetlist1 = []
+        datasetlist1.push({
+            label:'PLO Percentage',
+            data: table1,
+            backgroundColor: colors
+            });
+ 
+        var data = myChart.config.data;
+      data.datasets = datasetlist1;
+      data.labels = plo1;
+ 
+      myChart.update();
+ 
+    });
+    $("#1").click(function() {
+      var datasetlist2 = []
+      for (let i = 0; i < co.length; i++) {
+            datasetlist2.push({
+               label: co[i],
+               data: table3[i],
                backgroundColor:colors[i],
                fill:false,
                borderColor: colors[i],
-
+ 
             });
         }
-
-        var config = {
-              type: 'bar',
-              data: {
-                  labels: labels,
-                  datasets: datasetlist,
-              },
-              options: {
-                   barPercentage: 1,
-                   barThickness: 40,
-                   categoryPercentage:1,
-                  scales: {
-                      xAxes: [{
-
-                          gridLines: {
-                              display: false,
-                          }
-                      }],
-                      yAxes: [{
-                          ticks: {
-                              beginAtZero: true,
-                              max:4,
-                          },
-                          type: 'linear',
-                      }]
-                  },
-
-                  responsive: true,
-                  maintainAspectRatio: true
-              }
+      var data = myChart.config.data;
+      data.datasets = datasetlist2;
+      data.labels = plo3;
+ 
+      myChart.update();
+    });
+ 
+    $("#2").click(function() {
+       var datasetlist3 = []
+       for (let i = 0; i < courses.length; i++) {
+            datasetlist3.push({
+               label: courses[i],
+               data: table4[i],
+               backgroundColor:colors[i],
+               fill:false,
+               borderColor: colors[i],
+ 
+            });
         }
-
-   var myChartData = new Chart(ctx, config);
-
-
+      var data = myChart.config.data;
+      data.datasets = datasetlist3;
+      data.labels = plo4;
+      myChart.update();
+    });
 </script>
 
+
+
+
+
+
+
+<!-- <script>
+    var search ={{search}}
+ 
+    if(search==1){
+        document.getElementById("chart2").style.display = "none";
+        }
+</script>
+<script>
+ 
+ 
+    var ctx = document.getElementById('plowithavg').getContext('2d');
+      var data = {
+              labels: {{plo1|safe}},
+              datasets: [{
+                  label: 'Individual',
+                  data: {{table1}},
+                  backgroundColor: '#00539CFF'
+              },
+              {
+                  label: 'Dept Average',
+                  data: {{table2}},
+                  backgroundColor: '#EEA47FFF'
+              },
+              ]
+          };
+ 
+        var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            barValueSpacing: 30,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max:100,
+                    }
+                }]
+            }
+        }
+    });
+</script> -->
+<!-- <script>
+    var search ={{search}}
+ 
+    if(search==1){
+        document.getElementById("chart3").style.display = "none";
+        }
+</script>
+<script>
+ 
+ 
+    var ctx = document.getElementById('left').getContext('2d');
+      var data = {
+              labels: {{plo1|safe}},
+              datasets: [{
+                  label: 'Individual',
+                  data: {{table1}},
+                  backgroundColor: '#2C5F2D'
+              },
+              {
+                  label: 'Program Average',
+                  data: {{table2}},
+                  backgroundColor: '#97BC62FF'
+              },
+              ]
+          };
+ 
+        var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            barValueSpacing: 30,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max:100,
+                    }
+                }]
+            }
+        }
+    });
+ 
+    var ctx = document.getElementById('right').getContext('2d');
+      var data = {
+              labels: {{plo1|safe}},
+              datasets: [{
+                  label: 'Individual',
+                  data: {{table1}},
+                  backgroundColor: '#FC766AFF'
+              },
+              {
+                  label: 'School Average',
+                  data: {{splo}},
+                  backgroundColor: '#5B84B1FF'
+              },
+              ]
+          };
+ 
+        var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            barValueSpacing: 30,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max:100,
+                    }
+                }]
+            }
+        }
+    });
+</script>
+  -->
+ 
 {% endblock javascripts %}
